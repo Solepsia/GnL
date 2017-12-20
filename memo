@@ -1,0 +1,2 @@
+git add remote [alias] [adresse]
+git push [alias] master

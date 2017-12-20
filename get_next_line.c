@@ -6,7 +6,7 @@
 /*   By: grota <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 12:51:53 by grota             #+#    #+#             */
-/*   Updated: 2017/12/18 18:44:01 by grota            ###   ########.fr       */
+/*   Updated: 2017/12/20 19:33:16 by grota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ static int		ft_split_next(char **line, char **next)
 		return (0);
 	*line = ft_strdup(split[0]);
 	free(*next);
-	next = ft_strnew(0);
+	*next = ft_strnew(0);
 	while (split[i])
 	{
-		*next = ft_strjoinf(*next, split[i], 3);
-		ft_strdel(split[i++]);
+		*next = ft_strjoinf(*next, split[i], 0);
+		(*next)[ft_strlen(*next)] = '\n';
+		(*next)[ft_strlen(*next) + 1] = '\0';
+		ft_strdel(&split[i++]);
 	}
 	free(split);
 	return (1);
@@ -37,27 +39,50 @@ int				get_next_line(const int fd, char **line)
 {
 	static char	*next = NULL;
 	int			ret;
-	char		buf[BUFF_SIZE + 1];
+	char		*buf;
 
-	if (fd < 0 || BUFF_SIZE < 1 || !line)
+	if (fd < 0 || BUFF_SIZE < 1 || !line || !(buf = ft_strnew(BUFF_SIZE)))
 		return (-1);
 	if (ft_strlen(next) && ft_split_next(line, &next))
 		return (1);
 	while ((ret = read(fd, buf, BUFF_SIZE)) && ret > 0)
 	{
-		buf[ret] = '\0';
 		if (ft_isinstr(buf, '\n'))
 		{
-			*line = ft_strjoinf(next, ft_strsub(buf, 0, ft_strclen(buf, '\n')), 2);
+			*line = ft_strjoinf(next, ft_strsub(buf, 0,
+						ft_strclen(buf, '\n')), 0);
 			next = ft_strsub(buf, ft_strclen(buf, '\n') + 1, BUFF_SIZE + 1);
 			return (1);
 		}
-		next = ft_strjoinf(next, buf, 3);
+		next = ft_strjoinf(next, buf, 0);
 	}
-	if (ret == 0 && next)
-	{
-		*line = ft_strdup(next);
-		return (0);
-	}
-	return ((ret == -1) ? -1 : 0);
+	*line = NULL;
+	return (ret);
+}
+
+int				main(int argc, char **argv)
+{
+//	int		i;
+//	char	*line;
+//	int		fd;
+
+	ft_strlen(NULL);
+
+//	i = 0;
+//	line = ft_strnew(12);
+//	if (argc != 2)
+//		return(0);
+//	fd = open(argv[1], O_RDONLY);
+//	i = get_next_line(fd, &line);
+//	ft_putnbr(i);
+//	ft_putendl(line);
+//	i = get_next_line(fd, &line);
+//	ft_putnbr(i);
+//	ft_putendl(line);
+//	i = get_next_line(fd, &line);
+//	ft_putnbr(i);
+//	ft_putendl(line);
+//	i = get_next_line(fd, &line);
+//	ft_putnbr(i);
+//	ft_putendl(line);
 }
