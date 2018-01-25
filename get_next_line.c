@@ -14,24 +14,13 @@
 
 static int		ft_split_next(char **line, char **next)
 {
-	char	**split;
 	size_t	i;
 
 	i = 1;
-	if (!next || !ft_isinstr(*next, '\n') ||
-			!(split = ft_strsplit(*next, '\n')))
+	if (!next || !ft_isinstr(*next, '\n'))
 		return (0);
-	*line = ft_strdup(split[0]);
-	free(*next);
-	*next = ft_strnew(0);
-	while (split[i])
-	{
-		*next = ft_strjoinf(*next, split[i], 0);
-		(*next)[ft_strlen(*next)] = '\n';
-		(*next)[ft_strlen(*next) + 1] = '\0';
-		ft_strdel(&split[i++]);
-	}
-	free(split);
+	*line = ft_strsub(*next, 0, ft_strclen(*next, '\n'));
+	*next = ft_strsub(*next, ft_strclen(*next, '\n'), ft_strlen(*next));
 	return (1);
 }
 
@@ -60,29 +49,27 @@ int				get_next_line(const int fd, char **line)
 	return (ret);
 }
 
-int				main(int argc, char **argv)
+/*int				main(int argc, char **argv)
 {
-//	int		i;
-//	char	*line;
-//	int		fd;
+	int		i;
+	char	*line;
+	int		fd;
 
-	ft_strlen(NULL);
-
-//	i = 0;
-//	line = ft_strnew(12);
-//	if (argc != 2)
-//		return(0);
-//	fd = open(argv[1], O_RDONLY);
-//	i = get_next_line(fd, &line);
-//	ft_putnbr(i);
-//	ft_putendl(line);
-//	i = get_next_line(fd, &line);
-//	ft_putnbr(i);
-//	ft_putendl(line);
-//	i = get_next_line(fd, &line);
-//	ft_putnbr(i);
-//	ft_putendl(line);
-//	i = get_next_line(fd, &line);
-//	ft_putnbr(i);
-//	ft_putendl(line);
-}
+	i = 0;
+	line = ft_strnew(12);
+	if (argc != 2)
+		return(0);
+	fd = open(argv[1], O_RDONLY);
+	i = get_next_line(fd, &line);
+	ft_putnbr(i);
+	ft_putendl(line);
+	i = get_next_line(fd, &line);
+	ft_putnbr(i);
+	ft_putendl(line);
+	i = get_next_line(fd, &line);
+	ft_putnbr(i);
+	ft_putendl(line);
+	i = get_next_line(fd, &line);
+	ft_putnbr(i);
+	ft_putendl(line);
+}*/
