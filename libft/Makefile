@@ -24,7 +24,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_isalnum.c \
 	  ft_lstdelone.c ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_putbasemaj.c \
 	  ft_putbasemaj_fd.c ft_putbasemin.c ft_putbasemin_fd.c ft_strclen.c \
 	  ft_bitx_isone.c ft_bitx_iszero.c ft_bitx_val.c ft_power.c ft_sqrt.c \
-	  ft_error_exit.c ft_isinstr.c ft_strjoinf.c
+	  ft_error_exit.c ft_isinstr.c ft_strjoinf.c ft_strsubf.c get_next_line.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -43,5 +43,6 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@echo "Libft full clean done."
 
 re: fclean all

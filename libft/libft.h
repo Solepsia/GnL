@@ -6,7 +6,7 @@
 /*   By: grota <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 14:48:49 by grota             #+#    #+#             */
-/*   Updated: 2017/12/20 16:48:04 by grota            ###   ########.fr       */
+/*   Updated: 2018/02/13 12:23:41 by grota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
+# include <mlx.h>
+# include <math.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdio.h>
+
+# define BUFF_SIZE 42
 
 typedef struct		s_list
 {
@@ -24,6 +31,12 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_vec2i
+{
+	int				x;
+	int				y;
+}					t_vec2i;
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -98,5 +111,7 @@ int					ft_power(int a, unsigned int n);
 void				ft_error_exit(char *str);
 int					ft_sqrt(int nb);
 int					ft_isinstr(char *str, char c);
+char				*ft_strsubf(char *s, unsigned int start, size_t len);
+int					get_next_line(const int fd, char **line);
 
 #endif

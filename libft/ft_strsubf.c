@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strsubf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grota <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/16 16:39:53 by grota             #+#    #+#             */
-/*   Updated: 2017/11/16 16:53:43 by grota            ###   ########.fr       */
+/*   Created: 2018/01/26 16:50:21 by grota             #+#    #+#             */
+/*   Updated: 2018/01/26 16:52:16 by grota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strsubf(char *s, unsigned int start, size_t len)
 {
-	void	*b;
+	size_t	i;
+	char	*d;
 
-	b = ft_memset(s, 0, n);
+	i = 0;
+	if (!(d = ft_strnew(len)))
+		return (NULL);
+	while (i < len && s[start + i])
+	{
+		d[i] = s[start + i];
+		i++;
+	}
+	free(s);
+	return (d);
 }
